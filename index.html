@@ -1861,6 +1861,22 @@ body.kn-lock{overflow:hidden}
 body.kn-lock .wrap,body.kn-lock #wx,body.kn-lock .mnav,body.kn-lock .mnav4{visibility:hidden!important}
 body.kn-lock *:not(#kino):not(#kino *){animation-play-state:paused!important}
 body.kn-lock .crt{display:none!important}
+
+/* ===== v6.0 производительность ===== */
+/* пол едет через transform (GPU), а не через перерисовку фона */
+.floor::before{top:0;height:316px;animation:floorGPU 2.4s linear infinite;will-change:transform;background-position:0 0}
+@keyframes floorGPU{from{transform:rotateX(62deg) translateY(-56px)}to{transform:rotateX(62deg) translateY(0)}}
+/* что не видно — не анимируем */
+body.hdr-off .wrap>header,body.hdr-off .wrap>header *{animation-play-state:paused!important}
+#kino:not(.open),#kino:not(.open) *{animation-play-state:paused!important}
+.ovl:not(.open) *,.modal:not(.open) *{animation-play-state:paused!important}
+/* строки списка вне экрана не раскладываются и не рисуются */
+#list>section>ol>li{content-visibility:auto;contain-intrinsic-size:auto 58px}
+
+.anim-off,.anim-off *{animation-play-state:paused!important}
+.sheet:not(.open) *{animation-play-state:paused!important}
+
+.crt{will-change:opacity;contain:strict}.crt::after{will-change:transform}
 </style>
 </head>
 <body>
@@ -2138,8 +2154,8 @@ tv:[".#...#.","..#.#..","#######","#.....#","#.....#","#######",".#...#."]};
 const PCACHE={};
 const VEC={play:'<polygon points="1.5,1 8.5,5 1.5,9"/>',next:'<polygon points="0.5,1 6.5,5 0.5,9"/><rect x="7" y="1" width="2.2" height="8"/>'};
 function picon(n){if(PCACHE[n])return PCACHE[n];if(VEC[n])return PCACHE[n]=`<i class="pi"><svg viewBox="0 0 10 10" aria-hidden="true">${VEC[n]}</svg></i>`;const m=PIX[n];if(!m)return'';const h=m.length,w=Math.max(...m.map(r=>r.length));let r='';
- m.forEach((row,y)=>{let x=0;while(x<row.length){if(row[x]==='#'){let s=x;while(row[x]==='#')x++;r+=`<rect x="${s}" y="${y}" width="${x-s}" height="1.02"/>`}else x++}});
- return PCACHE[n]=`<i class="pi"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${r}</svg></i>`}
+ m.forEach((row,y)=>{let x=0;while(x<row.length){if(row[x]==='#'){let s=x;while(row[x]==='#')x++;r+=`M${s} ${y}h${x-s+.02}v1.02h-${x-s+.02}z`}else x++}});
+ return PCACHE[n]=`<i class="pi"><svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="${r}"/></svg></i>`}
 function hydrateIcons(root){(root||document).querySelectorAll('i.pi[data-i]').forEach(el=>{const n=el.dataset.i;el.removeAttribute('data-i');el.innerHTML=picon(n).replace(/^<i class="pi">|<\/i>$/g,'')})}
 /* ---------- pixel season icons ---------- */
 const PAL={y:'#ffd23f',o:'#e09a00',w:'#ffffff',r:'#e8352b',b:'#2a7bff',p:'#9b4fe0',g:'#3ccf4e',k:'#151515',n:'#8a5a2b',c:'#7fd6ff',s:'#c9ccef',m:'#ff7ab8',d:'#4a2c10'};
@@ -2462,9 +2478,9 @@ const STAR_MESH=(()=>{const V=[],F=[];const R1=1,R2=.46,D=.34;
  for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?R2:R1;V.push([Math.cos(a)*r,Math.sin(a)*r,0])}
  V.push([0,0,D]);V.push([0,0,-D]);const FR=10,BK=11;
  for(let i=0;i<10;i++){const j=(i+1)%10;F.push([FR,i,j]);F.push([BK,j,i])}return {V,F}})();
-const STARS3=[];
+const STARS3=[];var S3RO=('ResizeObserver' in window)?new ResizeObserver(es=>es.forEach(e=>{const o=STARS3.find(x=>x.c===e.target);if(o){o.w=e.target.clientWidth;o.h=e.target.clientHeight}})):null;
 function star3dInit(root){(root||document).querySelectorAll('canvas.s3d:not([data-ok])').forEach((c,k)=>{c.dataset.ok=1;STARS3.push({c,ph:Math.random()*6.28,sp:.9+Math.random()*.4})})}
-function drawStar3(o,t){const c=o.c;const w=c.clientWidth,h=c.clientHeight;if(!w||!h)return;const dpr=Math.min(2,window.devicePixelRatio||1);
+function drawStar3(o,t){const c=o.c;if(!o.w||!S3RO){o.w=c.clientWidth;o.h=c.clientHeight;if(S3RO&&!o.ro){o.ro=1;S3RO.observe(c)}}const w=o.w,h=o.h;if(!w||!h)return;const dpr=Math.min(2,window.devicePixelRatio||1);
  if(c.width!==Math.round(w*dpr)){c.width=Math.round(w*dpr);c.height=Math.round(h*dpr)}const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);
  const ay=t*o.sp*1.7+o.ph,ax=-.28+Math.sin(t*.9+o.ph)*.12,cy=Math.cos(ay),sy=Math.sin(ay),cx=Math.cos(ax),sx=Math.sin(ax);
  const s=Math.min(w,h)*.47,ox=w/2,oy=h/2+h*.02;
@@ -2838,7 +2854,7 @@ resetUndoOffer();hydrateIcons();constBuild();star3dInit();s3raf=requestAnimation
  const upd=()=>{raf=0;const hud=document.querySelector('.hud');const line=hud?hud.getBoundingClientRect().bottom:0;let f=null;
   if(!$('title').classList.contains('open')){for(const s of document.querySelectorAll('#list section:not(.col)')){const r=s.getBoundingClientRect();if(r.top<line&&r.bottom>line+60){const sh=s.querySelector('.sh').getBoundingClientRect();if(sh.bottom<line)f=s;break}}}
   if(f){const L=$('list').getBoundingClientRect();st.style.top=(line+2)+'px';st.style.left=(L.left+6)+'px';st.style.width=(L.width-12)+'px';
-   if(f!==cur||1){const n=f.id.slice(4),S=DATA.find(x=>String(x.n)===n),V=S.eps.filter(base),d=V.filter(e=>done.has(e.id)).length;
+   const _k=f.id+'|'+done.size+'|'+line;if(st._k!==_k){st._k=_k;const n=f.id.slice(4),S=DATA.find(x=>String(x.n)===n),V=S.eps.filter(base),d=V.filter(e=>done.has(e.id)).length;
     st.style.setProperty('--c',S.c);st.querySelector('.sn').textContent='СЕЗОН '+n;st.querySelector('.sy').textContent=S.y.replace('-','–');st.querySelector('.sb i').style.width=(V.length?d/V.length*100:0)+'%';st.querySelector('.sc').textContent=d+'/'+V.length;st.classList.toggle('gold',d===V.length)}
    st.classList.add('on')}else st.classList.remove('on');cur=f};
  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(upd)},{passive:true});addEventListener('resize',()=>{if(!raf)raf=requestAnimationFrame(upd)});
@@ -3212,7 +3228,8 @@ applyLook();
 /* ===== v4.6: pixel weather + sliding nav ===== */
 const PXI={none:["#.......#",".#.....#.","..#...#..","...#.#...","....#....","...#.#...","..#...#..",".#.....#.","#.......#"],auto:["....#....","....#....","...###...","#########",".#######.","..#####..","..##.##..",".##...##.","##.....##"],snow:["....#....","..#.#.#..","...###...","#.#.#.#.#",".#######.","#.#.#.#.#","...###...","..#.#.#..","....#...."],rain:["..#####..",".#######.","#########","#########",".........",".#..#..#.","#..#..#..","..#..#..#",".#..#..#."],leaves:["......###",".....####","...######","..#######",".####.###","####.###.","###.###..",".#.#.....","#........"],hearts:[".##...##.","####.####","#########","#########",".#######.","..#####..","...###...","....#....","........."],
  home:["....#....","...###...","..#####..",".#######.","#########",".##...##.",".##...##.",".##.#.##.",".#######."],play:["##.......","####.....","######...","########.","#########","########.","######...","####.....","##......."],star:["....#....","...###...","#########",".#######.","..#####..","..##.##..",".##...##.","##.....##","........."],clock:["..#####..",".#..#..#.","#...#...#","#...#...#","#...###.#","#.......#","#.......#",".#.....#.","..#####.."],gear:["...###...",".#.###.#.","#########",".##...##.","###...###",".##...##.","#########",".#.###.#.","...###..."]};
-const pxs=n=>'<svg class="pxs" viewBox="0 0 9 9" aria-hidden="true">'+PXI[n].map((r,y)=>[...r].map((c,x)=>c==='#'?`<rect x="${x}" y="${y}" width="1.02" height="1.02"/>`:'').join('')).join('')+'</svg>';
+const PXP=(rows=>{const C=new Map();return rows=>{const k=rows.join('|');let d=C.get(k);if(d!==undefined)return d;d='';rows.forEach((row,y)=>{let x=0;while(x<row.length){if(row[x]==='#'){const s=x;while(row[x]==='#')x++;d+=`M${s} ${y}h${x-s+.02}v1.02h-${x-s+.02}z`}else x++}});C.set(k,d);return d}})();
+const pxs=n=>'<svg class="pxs" viewBox="0 0 9 9" aria-hidden="true"><path d="'+PXP(PXI[n])+'"/></svg>';
 {const WC={'':['none','НЕТ','#8a91cc'],auto:['auto','АВТО','#ffd23f'],snow:['snow','СНЕГ','#bfe9ff'],rain:['rain','ДОЖДЬ','#6aa8ff'],leaves:['leaves','ЛИСТЬЯ','#ff8a1f'],hearts:['hearts','СЕРДЦА','#ff6b8a']};
  const W=$('wxS');if(W){W.classList.add('wxp');W.querySelectorAll('button').forEach(b=>{const m=WC[b.dataset.v];if(!m)return;b.style.setProperty('--c',m[2]);b.innerHTML=pxs(m[0])+'<span>'+m[1]+'</span>';b.title=m[1]})}}
 
@@ -3312,7 +3329,7 @@ const PET=(()=>{const V=(x,y,z)=>({x,y,z});
   cv.addEventListener('pointerdown',e=>{I.drag={x:e.clientX,y:e.clientY,ay:I.ay,ax:I.ax,mx:0};try{cv.setPointerCapture(e.pointerId)}catch(_){}});
   cv.addEventListener('pointermove',e=>{if(!I.drag)return;const dx=e.clientX-I.drag.x;I.drag.mx=Math.max(I.drag.mx,Math.abs(dx));I.ay=I.drag.ay+dx*.015;I.ax=Math.max(-.6,Math.min(.5,I.drag.ax+(e.clientY-I.drag.y)*.008));I.vay=dx*.0006});
   cv.addEventListener('pointerup',()=>{if(I.drag&&I.drag.mx<6){I.jump=1;I.force='ok';I.forceT=Date.now()+4000;tone([[1047+Math.random()*300,.05],[1568,.06]],'triangle',.03);o.onTap&&o.onTap()}I.drag=null});
-  if('IntersectionObserver' in window)new IntersectionObserver(es=>es.forEach(e=>I.visible=e.isIntersecting)).observe(cv);
+  if('IntersectionObserver' in window)new IntersectionObserver(es=>es.forEach(e=>{I.visible=e.isIntersecting;if(I.visible&&!raf)raf=requestAnimationFrame(loop)})).observe(cv);
   insts.push(I);if(!raf)raf=requestAnimationFrame(loop);return I}
  function draw(I,now,S0){const {cv,g}=I,W=cv.width,H=cv.height,t=(now-I.t0)/1000;let mood=I.force&&Date.now()<I.forceT?I.force:S0.mood;
   if(!I.drag){I.ay+=I.vay;I.vay*=.95;if(Math.abs(I.vay)<.002){const tg=Math.sin(t*.6)*.5;I.ay+=(tg-I.ay)*.02}}
@@ -3334,8 +3351,8 @@ const PET=(()=>{const V=(x,y,z)=>({x,y,z});
   const ns=3+S0.st*2;for(let i=0;i<ns;i++){const a=i/ns*6.28+t*1.4,rr=sc*(1.25+Math.sin(t*3+i)*.08),x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr*.55,s=sc*(.045+.025*Math.sin(t*5+i))*(I.spin>0?1.8:1);
    g.fillStyle='#fff6c0';g.beginPath();g.moveTo(x,y-s*2);g.lineTo(x+s*.5,y-s*.5);g.lineTo(x+s*2,y);g.lineTo(x+s*.5,y+s*.5);g.lineTo(x,y+s*2);g.lineTo(x-s*.5,y+s*.5);g.lineTo(x-s*2,y);g.lineTo(x-s*.5,y-s*.5);g.closePath();g.fill()}
   if(mood==='sleep'){g.fillStyle='#e8f0ff';g.strokeStyle='#1a0c00';g.lineWidth=Math.max(2,sc*.03);g.font=`900 ${sc*.26}px system-ui`;const z=(t%2)/2;g.globalAlpha=1-z;g.strokeText('z',cx+sc*.8,cy-sc*(.75+z*.4));g.fillText('z',cx+sc*.8,cy-sc*(.75+z*.4));g.globalAlpha=1}}
- function loop(now){raf=0;const S0=state();let any=false;for(const I of insts){if(!I.cv.isConnected||!I.visible||document.hidden||document.body.classList.contains('kn-lock'))continue;any=true;draw(I,now,S0)}raf=requestAnimationFrame(loop)}
- return{create,state,insts,cheer(){insts.forEach(I=>{I.spin=1;I.jump=1;I.force='ok';I.forceT=Date.now()+5000})},lastSay}})();
+ function loop(now){raf=0;for(let k=insts.length-1;k>=0;k--)if(!insts[k].cv.isConnected)insts.splice(k,1);let any=false,S0=null;for(const I of insts){if(!I.visible||document.hidden||document.body.classList.contains('kn-lock'))continue;any=true;const act=I.drag||I.jump>.01||I.spin>.01||(I.forceT&&I.forceT>Date.now());if(!act&&now-(I._lt||0)<30)continue;I._lt=now;if(!S0)S0=state();draw(I,now,S0)}raf=any?requestAnimationFrame(loop):0}
+ return{kick(){if(!raf)raf=requestAnimationFrame(loop)},create,state,insts,cheer(){insts.forEach(I=>{I.spin=1;I.jump=1;I.force='ok';I.forceT=Date.now()+5000})},lastSay}})();
 /* speech */
 const PETL={ok:['Ещё одну серию? 🍝','Я сияю, когда ты смотришь!','Обожаю этот сезон','Тинь-тинь! ✨','Спагетти-время?'],hungry:['Я проголодался… покорми меня серией','Скучаю… 2 дня без серий','Хоть шортсик?'],sleep:['Zzz… спокойной ночи','Уже поздно… завтра досмотрим'],
  fed:['Ням! +1 звёздочка','Вкусная серия!','Ещё! Ещё!','Обожаю!'],long:['Ого, длинная! Неси попкорн 🍿'],boss:['БОСС ПОВЕРЖЕН!','Арка пройдена! Я снова золотой ✨'],grow:['Я подрос!']};
@@ -3345,7 +3362,7 @@ function petSay(t){document.querySelectorAll('.pet-say').forEach(b=>{b.textConte
  PET.create(w.querySelector('canvas'),{zoom:1.35,onTap:()=>{const S=PET.state();petSay(pick(PETL[S.mood]||PETL.ok))}});
  w.addEventListener('dblclick',()=>openHub('today'))}
 /* big pet in Сегодня — v5.2 gold card */
-const ppx=(rows,c)=>`<svg class="zpx" viewBox="0 0 9 9" fill="${c}" aria-hidden="true">`+rows.map((r,y)=>[...r].map((ch,x)=>ch==='#'?`<rect x="${x}" y="${y}" width="1.02" height="1.02"/>`:'').join('')).join('')+'</svg>';
+const ppx=(rows,c)=>`<svg class="zpx" viewBox="0 0 9 9" fill="${c}" aria-hidden="true"><path d="${PXP(rows)}"/></svg>`;
 function petHint(S){return S.mood==='hungry'?'Я проголодался… покорми меня серией!':S.mood==='sleep'?'Zzz… спокойной ночи':'Тапни меня! Отмечай серии, чтобы кормить'}
 {const _ht=hubToday;hubToday=function(){const S=PET.state(),n=done.size,TH=[0,50,200,500,698],lo=TH[S.st],hi=TH[S.st+1];
  const hf=Math.max(0,Math.min(6,Math.round(S.food/100*6))),max=S.st>=3&&n>=698,gp=max?10:Math.min(10,Math.ceil((n-lo)/(hi-lo)*10));
@@ -3370,7 +3387,7 @@ const KPX={prev:['#......#.','#.....##.','#....###.','#...####.','#..#####.','#.
  x:['##.....##','###...###','.###.###.','..#####..','...###...','..#####..','.###.###.','###...###','##.....##'],
  play:['.##......','.####....','.######..','.#######.','.########','.#######.','.######..','.####....','.##......'],
  tv:['.#.....#.','..#...#..','...#.#...','#########','#.......#','#.......#','#.......#','#########','.#.....#.']};
-const kpx=n=>'<svg class="ci px" viewBox="0 0 9 9" aria-hidden="true">'+KPX[n].map((r,y)=>[...r].map((c,x)=>c==='#'?`<rect x="${x}" y="${y}" width="1.02" height="1.02"/>`:'').join('')).join('')+'</svg>';
+const kpx=n=>'<svg class="ci px" viewBox="0 0 9 9" aria-hidden="true"><path d="'+PXP(KPX[n])+'"/></svg>';
 const VMAP={};eps.forEach(e=>{const v=vidOf(e);if(v&&!VMAP[v])VMAP[v]=e});
 const kino=document.createElement('div');kino.id='kino';kino.setAttribute('role','dialog');kino.setAttribute('aria-label','Кинотеатр');
 const KSTAR=(()=>{const P=[...Array(10)].map((_,i)=>[50+Math.cos(-Math.PI/2+i*Math.PI/5)*(i%2?20:46),52+Math.sin(-Math.PI/2+i*Math.PI/5)*(i%2?20:46)]),C=['#fff3a0','#ffd23f','#ffd23f','#e09a00','#e09a00','#a35f00','#a35f00','#e09a00','#ffd23f','#fff3a0'];
@@ -3530,6 +3547,31 @@ if(GS.tok)setTimeout(()=>gsSync(),1200);
  hit.addEventListener('pointerdown',e=>{e.preventDefault();try{hit.setPointerCapture(e.pointerId)}catch(_){}fwd('pointerdown',e)});
  hit.addEventListener('pointermove',e=>fwd('pointermove',e));hit.addEventListener('pointerup',e=>fwd('pointerup',e));hit.addEventListener('pointercancel',e=>fwd('pointerup',e));
  hit.addEventListener('dblclick',()=>openHub('today'))}}
+
+/* ===== v6.0 ПРОИЗВОДИТЕЛЬНОСТЬ ===== */
+/* 3D-звёзды: рисуем только видимые (IntersectionObserver вместо замеров каждый кадр), цикл спит, когда видимых нет */
+{const VIS=new Set();let run=0;const io=new IntersectionObserver(es=>{es.forEach(e=>{const o=STARS3.find(x=>x.c===e.target);if(!o)return;if(e.isIntersecting)VIS.add(o);else VIS.delete(o)});kick()},{rootMargin:'40px'});
+ STARS3.forEach(o=>io.observe(o.c));
+ const _init=star3dInit;star3dInit=function(root){const n=STARS3.length;_init(root);for(let i=n;i<STARS3.length;i++)io.observe(STARS3[i].c);kick()};
+ function kick(){if(!run&&VIS.size&&!document.hidden&&!RM){cancelAnimationFrame(s3raf);run=requestAnimationFrame(star3dLoop)}}
+ let lastT=0;star3dLoop=function(ts){run=0;const t=ts/1000;const due=ts-lastT>=30;if(due)lastT=ts;if(due)for(const o of VIS){if(!o.c.isConnected){VIS.delete(o);continue}if(o.c.closest('.anim-off'))continue;drawStar3(o,RM?0.6:t)}if(VIS.size&&!document.hidden&&!RM&&!document.body.classList.contains('kn-lock'))run=s3raf=requestAnimationFrame(star3dLoop)};
+ cancelAnimationFrame(s3raf);if(RM)STARS3.forEach(o=>drawStar3(o,0.6));kick();
+ document.addEventListener('visibilitychange',()=>{run=0;kick()});
+ window.__s3kick=kick}
+/* шапка ушла с экрана — её декоративные анимации на паузу */
+{const hd=document.querySelector('.wrap>header');if(hd&&'IntersectionObserver' in window)new IntersectionObserver(es=>es.forEach(e=>document.body.classList.toggle('hdr-off',!e.isIntersecting))).observe(hd)}
+/* после закрытия кинотеатра — разбудить Звездуна и звёзды */
+{const _kc=kinoClose;kinoClose=function(){_kc.apply(this,arguments);try{PET.kick()}catch(_){}try{window.__s3kick&&window.__s3kick()}catch(_){}}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)try{PET.kick()}catch(_){}});
+
+/* невидимые анимированные слои (opacity:0 / visibility:hidden) — на паузу, пока не появятся */
+{const SEL=['#consts','#nstars','#saving','#record','#toast','#loading'],els=SEL.map(s=>document.querySelector(s)).filter(Boolean);
+ const vis=e=>{if(/\b(open|on|show|in)\b/.test(e.className.baseVal!==undefined?e.className.baseVal:e.className))return true;if(e.checkVisibility)return e.checkVisibility({opacityProperty:true,visibilityProperty:true});let x=e;while(x&&x.nodeType===1){const s=getComputedStyle(x);if(s.display==='none'||s.visibility==='hidden'||+s.opacity===0)return false;x=x.parentElement}return true};
+ const chk=()=>els.forEach(e=>e.classList.toggle('anim-off',!vis(e)));let t1=0,t2=0;
+ const soon=()=>{chk();clearTimeout(t1);clearTimeout(t2);t1=setTimeout(chk,60);t2=setTimeout(chk,700)};
+ const mo=new MutationObserver(soon);[document.documentElement,document.body,...els,...els.map(e=>e.parentElement)].forEach(n=>n&&mo.observe(n,{attributes:true,attributeFilter:['class','style','hidden']}));
+ // элементы могут показываться через классы на них самих — ловим и это, и редкую страховочную проверку
+ (window.requestIdleCallback||setTimeout)(chk,{timeout:1500});setInterval(()=>{if(!document.hidden)chk()},3000)}
 </script>
 </body>
 </html>
