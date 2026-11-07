@@ -1853,6 +1853,14 @@ body.kn-lock{overflow:hidden}
 .pet-mini canvas{pointer-events:none!important}
 .pet-hit{position:absolute;left:50%;top:47%;width:46%;height:46%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:auto;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}
 .gm{cursor:pointer}
+
+/* v5.9.2 кинотеатр без лагов: окно всегда в раскладке (плеер не чернеет), фон статичный, сайт под ним не рисуется */
+#kino{display:flex!important;visibility:hidden;opacity:0;pointer-events:none;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+ background:radial-gradient(ellipse at 50% 0%,#1d2468 0%,#0b0e33 55%,#05061a 100%)!important;transition:opacity .2s,visibility 0s .2s;animation:none!important}
+#kino.open{visibility:visible;opacity:1;pointer-events:auto;transition:opacity .2s}
+body.kn-lock .wrap,body.kn-lock #wx,body.kn-lock .mnav,body.kn-lock .mnav4{visibility:hidden!important}
+body.kn-lock *:not(#kino):not(#kino *){animation-play-state:paused!important}
+body.kn-lock .crt{display:none!important}
 </style>
 </head>
 <body>
@@ -3326,7 +3334,7 @@ const PET=(()=>{const V=(x,y,z)=>({x,y,z});
   const ns=3+S0.st*2;for(let i=0;i<ns;i++){const a=i/ns*6.28+t*1.4,rr=sc*(1.25+Math.sin(t*3+i)*.08),x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr*.55,s=sc*(.045+.025*Math.sin(t*5+i))*(I.spin>0?1.8:1);
    g.fillStyle='#fff6c0';g.beginPath();g.moveTo(x,y-s*2);g.lineTo(x+s*.5,y-s*.5);g.lineTo(x+s*2,y);g.lineTo(x+s*.5,y+s*.5);g.lineTo(x,y+s*2);g.lineTo(x-s*.5,y+s*.5);g.lineTo(x-s*2,y);g.lineTo(x-s*.5,y-s*.5);g.closePath();g.fill()}
   if(mood==='sleep'){g.fillStyle='#e8f0ff';g.strokeStyle='#1a0c00';g.lineWidth=Math.max(2,sc*.03);g.font=`900 ${sc*.26}px system-ui`;const z=(t%2)/2;g.globalAlpha=1-z;g.strokeText('z',cx+sc*.8,cy-sc*(.75+z*.4));g.fillText('z',cx+sc*.8,cy-sc*(.75+z*.4));g.globalAlpha=1}}
- function loop(now){raf=0;const S0=state();let any=false;for(const I of insts){if(!I.cv.isConnected||!I.visible||document.hidden)continue;any=true;draw(I,now,S0)}raf=requestAnimationFrame(loop)}
+ function loop(now){raf=0;const S0=state();let any=false;for(const I of insts){if(!I.cv.isConnected||!I.visible||document.hidden||document.body.classList.contains('kn-lock'))continue;any=true;draw(I,now,S0)}raf=requestAnimationFrame(loop)}
  return{create,state,insts,cheer(){insts.forEach(I=>{I.spin=1;I.jump=1;I.force='ok';I.forceT=Date.now()+5000})},lastSay}})();
 /* speech */
 const PETL={ok:['Ещё одну серию? 🍝','Я сияю, когда ты смотришь!','Обожаю этот сезон','Тинь-тинь! ✨','Спагетти-время?'],hungry:['Я проголодался… покорми меня серией','Скучаю… 2 дня без серий','Хоть шортсик?'],sleep:['Zzz… спокойной ночи','Уже поздно… завтра досмотрим'],
