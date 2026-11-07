@@ -1849,6 +1849,10 @@ body.kn-lock{overflow:hidden}
 
 .gm b{position:relative;width:10px;height:10px}.gm.sel b::before{content:"";position:absolute;left:1px;top:1px;border:4px solid transparent;border-left:6px solid #0f380f;border-right:0}
 .gst{display:inline-flex;align-items:center;gap:3px}.gst .zpx{width:9px;height:9px}
+
+.pet-mini canvas{pointer-events:none!important}
+.pet-hit{position:absolute;left:50%;top:47%;width:46%;height:46%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:auto;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}
+.gm{cursor:pointer}
 </style>
 </head>
 <body>
@@ -3501,7 +3505,7 @@ function gbRender(){const B=$('gsB');if(!B)return;const old=$('gbTok'),val=old?o
  const ni=$('gbTok');if(ni){ni.value=val;if(foc)ni.focus();ni.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();gbConnect()}})}
  $('gbX').onclick=gbClose;$('gbB').onclick=gbClose;$('gbA').onclick=gbAct;$('gbSt').onclick=gbAct;$('gbSel').onclick=()=>gbMove(1);
  B.querySelectorAll('[data-d]').forEach(x=>x.onclick=()=>gbMove(+x.dataset.d));
- B.querySelectorAll('.gm[data-k]').forEach(x=>x.onclick=()=>{GBS=+x.dataset.k;gbAct()})}
+ B.querySelectorAll('.gm[data-k]').forEach(x=>{x.onclick=()=>{GBS=+x.dataset.k;gbAct()};x.onmouseenter=()=>{const k=+x.dataset.k;if(k===GBS)return;GBS=k;try{tone([[988,.03]],'square',.02)}catch(_){}B.querySelectorAll('.gm[data-k]').forEach(y=>y.classList.toggle('sel',+y.dataset.k===GBS))}})}
 function gbMove(d){const n=gbItems().length;if(!n)return;GBS=(GBS+d+n)%n;try{tone([[988,.03]],'square',.02)}catch(_){}gbRender()}
 function gbAct(){const I=gbItems();if(!I[GBS])return;try{tone([[659,.04],[988,.06]],'square',.025)}catch(_){}I[GBS][1]()}
 function gbClose(){GBC=false;gsM.classList.remove('open')}
@@ -3511,6 +3515,13 @@ function openSync(){GBS=0;GBC=false;gsM.classList.add('open');gsUI()}
 {const sb=document.querySelector('#sheet .sheet-b .mh');if(sb)sb.insertAdjacentHTML('afterend',`<button class="gs-card" id="gsCard"><span class="gs-ic">${ppx(CLOUD,'#fff')}</span><span class="gs-tx"><b>ОБЛАКО · СИНХРОНИЗАЦИЯ</b><small class="gs-st"></small></span><span class="gs-go">›</span></button>`);
  const c=$('gsCard');if(c)c.onclick=openSync;gsUI()}
 if(GS.tok)setTimeout(()=>gsSync(),1200);
+
+/* v5.9.1 мини-Звездун: кликабельно только тело звезды, лучи не мешают кнопкам */
+{const w=document.querySelector('.pet-mini'),cv=w&&w.querySelector('canvas');if(cv){const hit=document.createElement('span');hit.className='pet-hit';w.appendChild(hit);
+ const fwd=(t,e)=>{try{cv.dispatchEvent(new PointerEvent(t,{clientX:e.clientX,clientY:e.clientY,pointerId:e.pointerId,pointerType:e.pointerType,bubbles:true,isPrimary:true,button:e.button,buttons:e.buttons}))}catch(_){}};
+ hit.addEventListener('pointerdown',e=>{e.preventDefault();try{hit.setPointerCapture(e.pointerId)}catch(_){}fwd('pointerdown',e)});
+ hit.addEventListener('pointermove',e=>fwd('pointermove',e));hit.addEventListener('pointerup',e=>fwd('pointerup',e));hit.addEventListener('pointercancel',e=>fwd('pointerup',e));
+ hit.addEventListener('dblclick',()=>openHub('today'))}}
 </script>
 </body>
 </html>
