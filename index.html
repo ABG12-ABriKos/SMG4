@@ -1748,6 +1748,65 @@ body.kn-lock{overflow:hidden}
 @media(hover:hover){.kn-i:not(.on):hover{filter:brightness(1.2)}}
 @media(max-width:860px){.kn-main{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);padding:10px;gap:10px;overflow:hidden}.kn-left{overflow:visible}.kn-tv{max-height:none}.kn-tv.short{height:min(62vh,560px);margin:0 auto}.kn-top b{font-size:16px}.kn-top small{display:none}
  .kn-info{gap:8px}.kn-ttl{min-width:100%}.kn-ttl b{font-size:14px}.kn-ctl{flex:1}.kn-done{flex:1;justify-content:center;font-size:12px!important;padding:0 8px}.kn-ctl .cbtn{width:42px;height:42px}.kn-auto{width:100%;justify-content:flex-end}}
+
+/* v5.7 KINO — SM64 pause */
+#kino{align-items:center;gap:12px;padding:18px 28px 14px;padding-top:calc(18px + env(safe-area-inset-top));background:rgba(4,5,22,.62);-webkit-backdrop-filter:blur(10px) saturate(1.15);backdrop-filter:blur(10px) saturate(1.15)}
+#kino::before{display:none}
+.k1-h{width:100%;display:flex;align-items:flex-start;gap:16px}
+.k1-tt{min-width:0}.k1-tt b{display:block;font:400 28px/1.05 var(--title);word-spacing:normal;color:#fff;-webkit-text-stroke:2.5px #000;paint-order:stroke fill;text-shadow:0 4px 0 rgba(0,0,0,.55);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.k1-tt small{display:block;margin-top:7px;font-size:11px;color:#c9cdf5;letter-spacing:.5px}
+.k1-r{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.k1-cnt{display:flex;align-items:center;gap:6px}.k1-st{display:block;width:32px;height:32px;filter:drop-shadow(0 3px 0 rgba(0,0,0,.5))}.k1-st svg{width:100%;height:100%;display:block}
+.k1-cnt em{font:400 22px var(--title);font-style:normal;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill}.k1-cnt b{font:400 30px var(--title);word-spacing:normal;color:#ffd23f;-webkit-text-stroke:2.5px #000;paint-order:stroke fill;text-shadow:0 3px 0 rgba(0,0,0,.5)}.k1-cnt small{font-size:12px;color:#c9cdf5;margin-left:3px}
+.k1-auto{background:none;border:0;padding:2px 0;font:400 11px var(--title);word-spacing:normal;color:#c9cdf5;cursor:pointer;-webkit-text-stroke:1px #000;paint-order:stroke fill}.k1-auto .v::before{content:"ВЫКЛ";color:#ff8a8a}.k1-auto.on .v::before{content:"ВКЛ";color:#5fe07a}
+.k1-stage{position:relative;flex:none;width:min(100%,calc((100vh - 270px)*16/9));display:flex;flex-direction:column}
+.k1-scr{position:relative;width:100%;aspect-ratio:16/9;border:3px solid #000;border-radius:8px;overflow:hidden;background:#000;box-shadow:0 0 0 2px rgba(255,255,255,.1),0 20px 44px rgba(0,0,0,.6)}
+.k1-stage.short{width:min(100%,calc((100vh - 270px)*9/16))}.k1-stage.short .k1-scr{aspect-ratio:9/16}
+.k1-scr iframe,.k1-scr>div:not(.kn-nx):not(.kn-msg){position:absolute;inset:0;width:100%;height:100%;border:0}
+.k1-pb{height:5px;margin:6px 4px 0;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden}.k1-pb i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffd23f,#fff3a0);transition:width 1s linear}
+.k1-menu{display:flex;justify-content:center;gap:34px;flex-wrap:wrap}
+.k1-o{position:relative;display:flex;align-items:center;gap:10px;background:none;border:0;padding:4px 2px;cursor:pointer;font:400 22px/1 var(--title);word-spacing:normal;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:0 3px 0 rgba(0,0,0,.5);transition:transform .12s}
+.k1-cur{display:block;width:32px;height:32px;visibility:hidden;filter:drop-shadow(0 3px 0 rgba(0,0,0,.5))}.k1-cur svg{width:100%;height:100%;display:block}
+.k1-o.sel{color:#ffd23f}.k1-o.sel .k1-cur{visibility:visible;animation:k1spin 1.4s linear infinite}
+@keyframes k1spin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+.k1-o.ok span{color:#5fe07a}.k1-o.sel.ok span{color:#7dffa0}.k1-o.ex{color:#9aa0cc}.k1-o.ex.sel{color:#ffd23f}
+.k1-o:disabled{opacity:.35;cursor:default}.k1-o:active:not(:disabled){transform:scale(.95)}
+.k1-row{width:100%;flex:none;display:flex;gap:10px;overflow-x:auto;padding:4px 2px 6px;scrollbar-width:none;scroll-behavior:smooth}.k1-row::-webkit-scrollbar{display:none}
+.k1-c{flex:0 0 200px;display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:10px;border:2px solid rgba(255,255,255,.09);background:rgba(0,0,0,.45);color:#dfe2ff;font:inherit;font-size:9.5px;line-height:1.25;text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
+.k1-c b{flex:none;min-width:22px;font:400 20px var(--title);word-spacing:normal;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill}
+.k1-c span{flex:1;min-width:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.k1-c i{flex:none;display:block;width:20px;height:20px}.k1-c i svg{width:100%;height:100%;display:block}
+.k1-c.on{border-color:#ffd23f;background:rgba(255,210,63,.14)}.k1-c.on b{color:#ffd23f}
+@media(hover:hover){.k1-c:not(.on):hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}}
+#kino .kn-nx{inset:auto 12px 12px auto;background:rgba(5,6,26,.82);border:2px solid #fff;border-radius:10px;box-shadow:0 4px 0 rgba(0,0,0,.5)}
+#kino .kn-msg{z-index:2}
+@media(max-width:760px){#kino{padding:12px 12px 10px;gap:10px}.k1-tt b{font-size:19px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.k1-tt small{font-size:9.5px}
+ .k1-cnt b{font-size:22px}.k1-st{width:24px;height:24px}.k1-cnt em{font-size:16px}.k1-menu{gap:4px 14px}.k1-o{font-size:15px;gap:5px}.k1-cur{width:22px;height:22px}
+ .k1-stage{width:100%}.k1-stage.short{width:min(100%,calc((100vh - 300px)*9/16))}.k1-c{flex-basis:160px}}
+
+.k1-h>.sp{flex:1}
+#knL.k1-row{flex:none;flex-direction:row;min-height:0;overflow-x:auto;overflow-y:hidden;padding:4px 2px 6px;gap:10px;align-items:stretch}
+#knL .k1-c{height:auto}
+@media(max-width:760px){.k1-menu{flex-wrap:nowrap;gap:10px}.k1-o{font-size:13px;gap:3px;-webkit-text-stroke:1.6px #000}.k1-cur{width:18px;height:18px}}
+
+/* v5.7 sync */
+.gs-card{display:flex;align-items:center;gap:10px;width:100%;margin:2px 0 12px;padding:9px 12px;border:2px solid #000;border-radius:14px;background:linear-gradient(#232a7a,#161b55);box-shadow:inset 0 -4px 0 #8a91cc,0 3px 0 #000;color:#fff;font:inherit;text-align:left;cursor:pointer}
+.gs-card.on{box-shadow:inset 0 -4px 0 #3fd06a,0 3px 0 #000}.gs-card.bad{box-shadow:inset 0 -4px 0 #e8352b,0 3px 0 #000}
+.gs-ic{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:2px solid #3a1d00;background:radial-gradient(circle,#4f8cff 0 55%,transparent 57%),radial-gradient(circle at 35% 28%,#fff6b0,#ffd23f 50%,#c27b00);box-shadow:0 2px 0 #000}
+.gs-card.on .gs-ic,.gs-hero.on .gs-ic{background:radial-gradient(circle,#2fa83f 0 55%,transparent 57%),radial-gradient(circle at 35% 28%,#fff6b0,#ffd23f 50%,#c27b00)}
+.gs-card.bad .gs-ic,.gs-hero.bad .gs-ic{background:radial-gradient(circle,#e8352b 0 55%,transparent 57%),radial-gradient(circle at 35% 28%,#fff6b0,#ffd23f 50%,#c27b00)}
+.gs-ic .zpx{width:18px;height:18px}
+.gs-tx{flex:1;min-width:0}.gs-tx b{display:block;font:400 11px var(--title);word-spacing:normal}.gs-tx small{display:block;margin-top:3px;font-size:9.5px;color:#a9b0e8}.gs-go{font:400 20px var(--title);color:#ffd23f}
+.gs-b{max-width:440px;width:100%}
+.gs-hero{display:flex;align-items:center;gap:12px;padding:12px;margin:6px 0 10px;border:2px solid #000;border-radius:14px;background:linear-gradient(#2a3180,#1a2066);box-shadow:inset 0 -4px 0 #8a91cc,0 3px 0 #000}
+.gs-hero.on{box-shadow:inset 0 -4px 0 #3fd06a,0 3px 0 #000}.gs-hero.bad{box-shadow:inset 0 -4px 0 #e8352b,0 3px 0 #000}
+.gs-hero .gs-ic{width:44px;height:44px}.gs-hero b{display:block;font:400 14px var(--title);word-spacing:normal;color:#ffd23f}.gs-hero small{display:block;margin-top:4px;font-size:10px;color:#dfe2ff;line-height:1.4}
+.gs-p{font-size:10.5px;line-height:1.5;color:#dfe2ff;margin:8px 0}.gs-p.dim{color:#8a91cc;font-size:9.5px}
+.gs-ol{margin:4px 0 10px;padding-left:18px;font-size:10.5px;line-height:1.55;color:#dfe2ff}.gs-ol li{margin:4px 0}.gs-ol a{color:#ffd23f}
+.gs-in{width:100%;padding:10px 12px;border:2px solid #000;border-radius:10px;background:#050620;color:#fff;font:12px var(--body);user-select:text;-webkit-user-select:text}
+.gs-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.gs-btns .bev{flex:1;text-align:center;text-decoration:none;padding:11px 8px;font-size:12px!important}
+.gs-off{display:block;margin:12px auto 0;background:none;border:0;color:#ff8a8a;font:10px var(--body);text-decoration:underline;cursor:pointer}
+@media(max-width:760px){.k1-row{margin-top:auto}}
 </style>
 </head>
 <body>
@@ -3260,12 +3319,14 @@ const KPX={prev:['#......#.','#.....##.','#....###.','#...####.','#..#####.','#.
 const kpx=n=>'<svg class="ci px" viewBox="0 0 9 9" aria-hidden="true">'+KPX[n].map((r,y)=>[...r].map((c,x)=>c==='#'?`<rect x="${x}" y="${y}" width="1.02" height="1.02"/>`:'').join('')).join('')+'</svg>';
 const VMAP={};eps.forEach(e=>{const v=vidOf(e);if(v&&!VMAP[v])VMAP[v]=e});
 const kino=document.createElement('div');kino.id='kino';kino.setAttribute('role','dialog');kino.setAttribute('aria-label','Кинотеатр');
-kino.innerHTML=`<div class="kn-top"><button class="cbtn" style="--k:#ffd23f" tabindex="-1" aria-hidden="true">${kpx('play')}</button><b>КИНОТЕАТР</b><small id="knS"></small><span class="sp"></span><button class="cbtn" id="knX" style="--k:#e8352b" aria-label="Закрыть">${kpx('x')}</button></div>
-<div class="kn-main"><div class="kn-left"><div class="kn-tv" id="knTV"><div class="kn-scr" id="knScr"></div></div>
-<div class="kn-info"><div class="kn-ttl"><b id="knT"></b><small id="knM"></small></div>
-<div class="kn-ctl"><button class="cbtn" id="knP" style="--k:#2f6fe0" aria-label="Предыдущая">${kpx('prev')}</button><button class="bev gold kn-done" id="knD">★ ВИДЕЛ</button><button class="cbtn" id="knN" style="--k:#2f6fe0" aria-label="Следующая">${kpx('next')}</button></div>
-<label class="kn-auto" id="knA"><span>АВТО-ДАЛЕЕ</span><span class="kn-sw"></span></label></div></div>
-<div class="kn-q"><div class="kn-qh"><b>ОЧЕРЕДЬ</b><small id="knC"></small></div><div id="knL"></div></div></div>`;
+const KSTAR=(()=>{const P=[...Array(10)].map((_,i)=>[50+Math.cos(-Math.PI/2+i*Math.PI/5)*(i%2?20:46),52+Math.sin(-Math.PI/2+i*Math.PI/5)*(i%2?20:46)]),C=['#fff3a0','#ffd23f','#ffd23f','#e09a00','#e09a00','#a35f00','#a35f00','#e09a00','#ffd23f','#fff3a0'];
+ return '<svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="'+P.map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ')+'" fill="#1a0c00" transform="translate(50 52) scale(1.13) translate(-50 -52)"/>'+P.map((p,i)=>{const q=P[(i+1)%10];return `<polygon points="50,52 ${p[0].toFixed(1)},${p[1].toFixed(1)} ${q[0].toFixed(1)},${q[1].toFixed(1)}" fill="${C[i]}"/>`}).join('')+'</svg>'})();
+const KOSTAR='<svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="'+[...Array(10)].map((_,i)=>[50+Math.cos(-Math.PI/2+i*Math.PI/5)*(i%2?19:44),52+Math.sin(-Math.PI/2+i*Math.PI/5)*(i%2?19:44)].map(v=>v.toFixed(1)).join(',')).join(' ')+'" fill="rgba(0,0,0,.35)" stroke="#fff" stroke-width="7" stroke-linejoin="round"/></svg>';
+kino.innerHTML=`<div class="k1-h"><div class="k1-tt"><b id="knT"></b><small id="knM"></small></div><span class="sp"></span>
+<div class="k1-r"><div class="k1-cnt"><i class="k1-st">${KSTAR}</i><em>×</em><b id="knS">0</b><small id="knC"></small></div><button class="k1-auto" id="knA">АВТО-ДАЛЕЕ: <span class="v"></span></button></div></div>
+<div class="k1-stage" id="knTV"><div class="k1-scr" id="knScr"></div><div class="k1-pb"><i id="knPB"></i></div></div>
+<div class="k1-menu" id="knMenu"><button class="k1-o" id="knP"><i class="k1-cur">${KSTAR}</i><span>НАЗАД</span></button><button class="k1-o sel" id="knD"><i class="k1-cur">${KSTAR}</i><span>ВИДЕЛ</span></button><button class="k1-o" id="knN"><i class="k1-cur">${KSTAR}</i><span>ДАЛЬШЕ</span></button><button class="k1-o ex" id="knX"><i class="k1-cur">${KSTAR}</i><span>ВЫХОД</span></button></div>
+<div class="k1-row" id="knL"></div>`;
 document.body.appendChild(kino);
 let KQ=[],KI=0,KP=null,KT=0,KNX=0,ytReady=null;
 if(X.kauto===undefined)X.kauto=true;
@@ -3273,28 +3334,30 @@ function ytApi(){if(ytReady)return ytReady;ytReady=new Promise((res,rej)=>{if(wi
 function kQueue(e){const i=eps.indexOf(e),q=[e.id];for(let k=i+1;k<eps.length&&q.length<60;k++){const x=eps[k];if(!done.has(x.id)&&!HID.has(x.id)&&vidOf(x))q.push(x.id)}return q}
 function kinoOpen(e){if(!e)return;KQ=kQueue(e);KI=0;kino.classList.add('open');document.body.classList.add('kn-lock');$('knA').classList.toggle('on',!!X.kauto);try{ecClose()}catch(_){}kPlay()}
 function kSave(){if(!KP||!KP.getCurrentTime)return;try{const id=KQ[KI],t=KP.getCurrentTime(),d=KP.getDuration();if(t>5&&d&&t<d-20){X.bm[id]=Math.floor(t)}else if(d&&t>=d-20)delete X.bm[id];saveX()}catch(_){}}
-function kStop(){clearInterval(KT);clearInterval(KNX);KT=KNX=0;kSave();try{KP&&KP.destroy()}catch(_){}KP=null}
-function kinoClose(){kStop();kino.classList.remove('open');document.body.classList.remove('kn-lock');$('knScr').innerHTML='';try{full()}catch(_){}}
+function kStop(full){clearInterval(KT);clearInterval(KNX);KT=KNX=0;kSave();if(full){try{KP&&KP.destroy()}catch(_){}KP=null}}
+function kinoClose(){kStop(true);kino.classList.remove('open');document.body.classList.remove('kn-lock');$('knScr').innerHTML='';try{full()}catch(_){}}
 function kMark(e,auto){if(done.has(e.id))return;toggle(e.id,true);delete X.bm[e.id];saveX();if(auto)toast('СЕРИЯ ПРОСМОТРЕНА','Отмечено автоматически ★');kUI()}
 function kGo(d){const n=KI+d;if(n<0||n>=KQ.length){if(n>=KQ.length)toast('КОНЕЦ ОЧЕРЕДИ','Всё просмотрено 🎉');return}KI=n;kPlay()}
-function kUI(){const e=BYID[KQ[KI]];if(!e)return;const dn=done.has(e.id);const D=$('knD');D.classList.toggle('on',dn);D.textContent=dn?'✓ ПРОСМОТРЕНО':'★ ВИДЕЛ';
- $('knP').disabled=KI===0;$('knN').disabled=KI>=KQ.length-1;$('knS').textContent=`СЕЗОН ${e.s} · ${KI+1}/${KQ.length}`;$('knC').textContent=`${KQ.length} серий`;
- $('knL').innerHTML=KQ.map((id,k)=>{const x=BYID[id];const as=(x.k==='arc'||x.boss)&&ARCSTYLE[arcKey(x)],c=as?as[0]:'';return `<button class="kn-i ${k===KI?'on':''} ${done.has(id)?'dn':''}" data-k="${k}"${c?` style="--c:${c}"`:''}><span class="n">${done.has(id)?'✓':k+1}</span><span class="t">${esc(x.t)}</span>${x.dur?`<small>${ts(x.dur)}</small>`:''}</button>`}).join('');
- const on=$('knL').querySelector('.on');if(on)on.scrollIntoView({block:'nearest'})}
-function kPlay(){kStop();const e=BYID[KQ[KI]];if(!e)return;const v=vidOf(e),st=X.bm[e.id]||0;
- $('knT').textContent=e.t;$('knM').innerHTML=`<i>${e.d?e.d.split('-').reverse().join('.'):''}</i>${e.dur?`<i>${mm(e.dur)}</i>`:''}${st?`<i>с места ${ts(st)}</i>`:''}${e.boss?'<i>БОСС</i>':''}`;
- $('knTV').classList.toggle('short',e.c==='short');kUI();
- const scr=$('knScr');scr.innerHTML='<div id="knPl"></div>';
- const fail=(why)=>{scr.innerHTML=`<div class="kn-msg"><b>${why}</b><span>Можно открыть серию на YouTube — потом отметь её здесь кнопкой «ВИДЕЛ».</span><a class="bev gold" href="${ytUrl(e,st)}" target="_blank" rel="noopener">▶ ОТКРЫТЬ НА YOUTUBE</a></div>`};
+function kUI(){const e=BYID[KQ[KI]];if(!e)return;const dn=done.has(e.id);const D=$('knD');D.classList.toggle('ok',dn);D.querySelector('span').textContent=dn?'ПРОСМОТРЕНО':'ВИДЕЛ';
+ $('knP').disabled=KI===0;$('knN').disabled=KI>=KQ.length-1;$('knS').textContent=KQ.filter(id=>done.has(id)).length;$('knC').textContent='/ '+KQ.length;
+ $('knL').innerHTML=KQ.map((id,k)=>{const x=BYID[id],d=done.has(id);return `<button class="k1-c ${k===KI?'on':''} ${d?'dn':''}" data-k="${k}"><b>${k+1}</b><span>${esc(x.t)}</span><i>${d?KSTAR:KOSTAR}</i></button>`}).join('');
+ const on=$('knL').querySelector('.on');if(on)on.scrollIntoView({block:'nearest',inline:'center'})}
+let KCUR=null;
+function kPlay(){kStop();const e=BYID[KQ[KI]];if(!e)return;KCUR=e;const v=vidOf(e),st=X.bm[e.id]||0;
+ $('knT').textContent=e.t;$('knM').textContent=['СЕЗОН '+e.s,e.d?e.d.slice(0,4):'',e.dur?ts(e.dur):'',st?'с '+ts(st):'',e.boss?'БОСС':''].filter(Boolean).join(' · ');$('knPB').style.width='0%';
+ $('knTV').classList.toggle('short',e.c==='short');kUI();const scr=$('knScr');scr.querySelectorAll('.kn-nx,.kn-msg').forEach(x=>x.remove());
+ const fail=(why)=>{if(KCUR!==e)return;const m=document.createElement('div');m.className='kn-msg';m.innerHTML=`<b>${why}</b><span>Можно открыть серию на YouTube — потом отметь её здесь кнопкой «ВИДЕЛ».</span><a class="bev gold" href="${ytUrl(e,st)}" target="_blank" rel="noopener">▶ ОТКРЫТЬ НА YOUTUBE</a>`;scr.appendChild(m);try{KP&&KP.pauseVideo()}catch(_){}};
  if(!v){fail('Этого видео нет на YouTube');return}
- ytApi().then(()=>{if(!kino.classList.contains('open')||BYID[KQ[KI]]!==e)return;
+ if(KP&&KP.loadVideoById){try{KP.loadVideoById({videoId:v,startSeconds:st});return}catch(_){kStop(true)}}
+ scr.innerHTML='<div id="knPl"></div>';
+ ytApi().then(()=>{if(!kino.classList.contains('open')||KCUR!==e)return;
   KP=new YT.Player('knPl',{videoId:v,playerVars:{autoplay:1,rel:0,playsinline:1,modestbranding:1,start:st},
    events:{onReady:ev=>{try{ev.target.playVideo()}catch(_){}},
     onError:ev=>fail(ev.data===101||ev.data===150?'Автор запретил смотреть это видео на других сайтах':'Видео не загрузилось'),
-    onStateChange:ev=>{if(ev.data===1&&!KT)KT=setInterval(()=>{kSave();try{const t=KP.getCurrentTime(),d=KP.getDuration();if(d>30&&t/d>=.95)kMark(e,true)}catch(_){}},5000);
-     if(ev.data===0){kMark(e,true);delete X.bm[e.id];saveX();if(X.kauto&&KI<KQ.length-1)kCount()}}}})
+    onStateChange:ev=>{const c=KCUR;if(!c)return;if(ev.data===1&&!KT)KT=setInterval(()=>{kSave();try{const t=KP.getCurrentTime(),d=KP.getDuration();if(d>30&&t/d>=.95)kMark(KCUR,true)}catch(_){}},5000);
+     if(ev.data===0){kMark(c,true);delete X.bm[c.id];saveX();if(X.kauto&&KI<KQ.length-1)kCount()}}}})
  }).catch(()=>fail('Плеер YouTube не загрузился'))}
-function kCount(){const nx=BYID[KQ[KI+1]];if(!nx)return;let n=5;const box=document.createElement('div');box.className='kn-nx';box.innerHTML=`<em>${n}</em><div><small>ДАЛЬШЕ</small><span>${esc(nx.t)}</span></div><button class="bev" style="font-size:10px!important;padding:6px 8px">ОТМЕНА</button>`;$('knScr').appendChild(box);
+function kCount(){const nx=BYID[KQ[KI+1]];if(!nx)return;let n=3;const box=document.createElement('div');box.className='kn-nx';box.innerHTML=`<em>${n}</em><div><small>ДАЛЬШЕ</small><span>${esc(nx.t)}</span></div><button class="bev" style="font-size:10px!important;padding:6px 8px">ОТМЕНА</button>`;$('knScr').appendChild(box);
  box.querySelector('button').onclick=()=>{clearInterval(KNX);KNX=0;box.remove()};
  KNX=setInterval(()=>{n--;box.querySelector('em').textContent=n;if(n<=0){clearInterval(KNX);KNX=0;kGo(1)}},1000)}
 $('knX').onclick=kinoClose;$('knP').onclick=()=>kGo(-1);$('knN').onclick=()=>kGo(1);
@@ -3303,9 +3366,89 @@ $('knA').onclick=ev=>{ev.preventDefault();X.kauto=!X.kauto;saveX();$('knA').clas
 $('knL').addEventListener('click',ev=>{const b=ev.target.closest('[data-k]');if(!b)return;KI=+b.dataset.k;kPlay()});
 addEventListener('keydown',ev=>{if(kino.classList.contains('open')&&ev.key==='Escape'){ev.stopPropagation();kinoClose()}},true);
 addEventListener('pagehide',kSave);
+/* прогрев */
+if(KINO_OK){['https://www.youtube.com','https://i.ytimg.com','https://www.google.com','https://googlevideo.com'].forEach(u=>{const l=document.createElement('link');l.rel='preconnect';l.href=u;l.crossOrigin='';document.head.appendChild(l)});{const _eo=ecOpen;ecOpen=function(){const r=_eo.apply(this,arguments);ytApi().catch(()=>{});return r}}}
 /* перехват кнопок «СМОТРЕТЬ» */
 if(KINO_OK)document.addEventListener('click',ev=>{const a=ev.target.closest('a[href*="youtube.com/"],a[href*="youtu.be/"]');if(!a||a.closest('#kino'))return;
  const m=a.href.match(/(?:v=|shorts\/|youtu\.be\/|embed\/)([\w-]{11})/);const e=m&&VMAP[m[1]];if(!e)return;ev.preventDefault();ev.stopPropagation();kinoOpen(e)},true);
+
+/* v5.6 автообновление на хостинге: обходит 10-минутный кэш GitHub Pages */
+if(KINO_OK){fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{const lm=r.headers.get('last-modified');if(!lm)return;const srv=Date.parse(lm),mine=Date.parse(document.lastModified);
+ if(srv&&mine&&srv-mine>1500){const k='smg4-upd-'+srv;if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1');const u=new URL(location.href);u.searchParams.set('v',String(srv/1000|0));location.replace(u.href)}}).catch(()=>{})}
+
+/* v5.7 SM64-меню кинотеатра: курсор-звезда, клавиши, полоска прогресса */
+{const M=$('knMenu'),O=[...M.querySelectorAll('.k1-o')];let si=1;
+ const selI=i=>{if(O[i].disabled)return;if(si!==i){si=i;try{tone([[988,.03]],'square',.02)}catch(_){}}O.forEach((o,k)=>o.classList.toggle('sel',k===si))};
+ O.forEach((o,i)=>{o.addEventListener('mouseenter',()=>selI(i));o.addEventListener('focus',()=>selI(i))});
+ addEventListener('keydown',ev=>{if(!kino.classList.contains('open'))return;if(ev.key==='ArrowRight'||ev.key==='ArrowLeft'){ev.preventDefault();let i=si;do{i=(i+(ev.key==='ArrowRight'?1:-1)+O.length)%O.length}while(O[i].disabled&&i!==si);selI(i)}
+  else if((ev.key==='Enter'||ev.key===' ')&&document.activeElement&&!document.activeElement.closest('.k1-row,.k1-auto')){ev.preventDefault();O[si].click()}});
+ const _ku=kUI;kUI=function(){_ku();if(O[si].disabled)selI(1)};
+ setInterval(()=>{if(!kino.classList.contains('open')||!KP||!KP.getCurrentTime)return;try{const t=KP.getCurrentTime(),d=KP.getDuration();if(d)$('knPB').style.width=Math.min(100,t/d*100)+'%'}catch(_){}},1000)}
+
+/* ===== v5.7 СИНХРОНИЗАЦИЯ ЧЕРЕЗ GITHUB GIST ===== */
+const GS={tok:LS.get('smg4-gh-tok','')||'',gid:LS.get('smg4-gh-gist-'+SLOT,'')||'',S:LS.get(KEY+'-gs',{})||{},ready:false,busy:false,err:'',pt:0,lastPull:0,applying:false};
+const GFILE='smg4-save-'+SLOT+'.json',GDESC='SMG4 tracker — сохранение (не удаляй)';
+const CLOUD=['.........','...###...','..#####..','.#######.','#########','#########','.#######.','.........','.........'];
+function gsCore(){return {d:[...done].sort(),f:[...fav].sort(),n:notes,t:times,a:[...got].sort(),x:X}}
+function gsHash(){const s=JSON.stringify(gsCore());let h=5381;for(let i=0;i<s.length;i++)h=(h*33^s.charCodeAt(i))>>>0;return h.toString(36)}
+function gsStore(){LS.set(KEY+'-gs',GS.S)}
+async function gh(path,opt={}){const r=await fetch('https://api.github.com'+path,{method:opt.method||'GET',body:opt.body,keepalive:!!opt.keepalive,cache:'no-store',
+  headers:Object.assign({'Accept':'application/vnd.github+json','Authorization':'Bearer '+GS.tok},opt.body?{'Content-Type':'application/json'}:{})});
+ if(!r.ok){const e=new Error('HTTP '+r.status);e.status=r.status;throw e}return r.status===204?null:r.json()}
+function gsErr(e){GS.err=e&&e.status===401?'Токен не подходит или истёк — создай новый':e&&e.status===404?'Сохранение не найдено — нажми «Подключить» ещё раз':e&&e.status===403?'GitHub временно ограничил запросы — попробую позже':'Нет связи с GitHub — сохраню, когда появится интернет';gsUI()}
+async function gsFind(){let pg=1;while(pg<=5){const L=await gh('/gists?per_page=100&page='+pg);const g=L.find(x=>x.files&&x.files[GFILE]&&x.description===GDESC);if(g)return g.id;if(L.length<100)break;pg++}return ''}
+async function gsRead(){const g=await gh('/gists/'+GS.gid);const f=g.files&&g.files[GFILE];if(!f)return null;let c=f.content;if(f.truncated&&f.raw_url)c=await (await fetch(f.raw_url,{cache:'no-store'})).text();try{return JSON.parse(c)}catch(_){return null}}
+function gsPayload(at){return JSON.stringify(Object.assign({app:'smg4-tracker',v:3,slot:SLOT,at,stars:done.size},gsCore()))}
+async function gsPush(keep){if(!GS.tok||!GS.gid)return;if(!keep){try{const r=await gsRead();if(r&&(r.at||0)>(GS.S.at||0))gsApply(gsMerge(r))}catch(e){if(e&&e.status===401)throw e}}const at=Date.now();
+ await gh('/gists/'+GS.gid,{method:'PATCH',keepalive:keep,body:JSON.stringify({files:{[GFILE]:{content:gsPayload(at)}}})});
+ GS.S.at=at;GS.S.h=gsHash();GS.S.dirty=false;GS.S.ok=at;gsStore();GS.err='';gsUI()}
+function gsApply(o){GS.applying=true;try{done=new Set(o.d||[]);fav=new Set(o.f||[]);notes=o.n||{};times=o.t||{};got=new Set(o.a||[]);
+ Object.keys(X).forEach(k=>delete X[k]);Object.assign(X,o.x||{});X.later=X.later||[];X.bm=X.bm||{};X.tlog=X.tlog||{};HID.clear();(X.hid||[]).forEach(i=>HID.add(i));
+ save();saveX();try{full()}catch(_){}try{if($('hub')&&$('hub').classList.contains('open'))hubRender()}catch(_){}}finally{GS.applying=false}}
+function gsMerge(r){const L=gsCore(),U=(a,b)=>[...new Set([...(a||[]),...(b||[])])],rx=r.x||{},lx=L.x||{};
+ const x=Object.assign({},rx,lx);x.later=U(rx.later,lx.later);x.hid=U(rx.hid,lx.hid);x.bm=Object.assign({},rx.bm,lx.bm);x.tlog=Object.assign({},rx.tlog);for(const k in (lx.tlog||{}))x.tlog[k]=Math.max(x.tlog[k]||0,lx.tlog[k]||0)||lx.tlog[k];
+ return {d:U(r.d,L.d),f:U(r.f,L.f),n:Object.assign({},r.n,L.n),t:Object.assign({},r.t,L.t),a:U(r.a,L.a),x}}
+async function gsSync(manual){if(!GS.tok||GS.busy)return;GS.busy=true;gsUI();
+ try{if(!GS.gid){GS.gid=await gsFind();if(GS.gid)LS.set('smg4-gh-gist-'+SLOT,GS.gid)}
+  if(!GS.gid){const g=await gh('/gists',{method:'POST',body:JSON.stringify({description:GDESC,public:false,files:{[GFILE]:{content:gsPayload(Date.now())}}})});GS.gid=g.id;LS.set('smg4-gh-gist-'+SLOT,GS.gid);GS.S={at:0,h:gsHash()};await gsPush();if(manual)toast('ОБЛАКО ПОДКЛЮЧЕНО','Прогресс сохранён в твой GitHub');return}
+  const r=await gsRead();GS.lastPull=Date.now();
+  if(!r){await gsPush();return}
+  const localDirty=GS.S.dirty||!GS.S.at||gsHash()!==GS.S.h;
+  if((r.at||0)>(GS.S.at||0)){
+   if(localDirty&&(done.size||Object.keys(notes).length)){gsApply(gsMerge(r));await gsPush();if(manual||!GS.S.ok)toast('ОБЛАКО','Прогресс с разных устройств объединён')}
+   else{gsApply(r);GS.S.at=r.at;GS.S.h=gsHash();GS.S.dirty=false;GS.S.ok=Date.now();gsStore();toast('ОБЛАКО','Загружен прогресс с другого устройства')}}
+  else if(localDirty)await gsPush();
+  else{GS.S.ok=Date.now();gsStore()}
+  GS.err='';if(manual)toast('ОБЛАКО','Всё синхронизировано')}
+ catch(e){gsErr(e)}finally{GS.busy=false;GS.ready=true;gsUI()}}
+function gsMark(){if(GS.applying||!GS.ready||!GS.tok)return;const hh=gsHash();if(hh===GS.S.h&&!GS.S.dirty)return;GS.S.dirty=true;gsStore();clearTimeout(GS.pt);GS.pt=setTimeout(()=>{if(!GS.busy)gsPush().catch(gsErr)},3000)}
+{const _s=save;save=function(){const r=_s.apply(this,arguments);gsMark();return r};const _x=saveX;saveX=function(){const r=_x.apply(this,arguments);gsMark();return r}}
+addEventListener('pagehide',()=>{if(GS.S.dirty&&GS.tok&&GS.gid){try{gsPush(true)}catch(_){}}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&GS.tok&&Date.now()-GS.lastPull>20000)gsSync()});
+/* --- UI --- */
+const gsM=document.createElement('div');gsM.className='modal';gsM.id='gsM';gsM.setAttribute('role','dialog');gsM.innerHTML='<div class="box gs-b" id="gsB"></div>';document.body.appendChild(gsM);
+gsM.addEventListener('click',e=>{if(e.target===gsM)gsM.classList.remove('open')});
+function gsWhen(t){if(!t)return'ещё не было';const d=new Date(t),n=new Date();return (d.toDateString()===n.toDateString()?'сегодня':d.toLocaleDateString('ru-RU'))+' в '+d.toTimeString().slice(0,5)}
+function gsUI(){const on=!!GS.tok,st=!on?'Выключена':GS.busy?'Синхронизирую…':GS.err?GS.err:GS.S.dirty?'Есть несохранённые изменения':'Сохранено '+gsWhen(GS.S.ok);
+ const c=$('gsCard');if(c){c.classList.toggle('on',on&&!GS.err);c.classList.toggle('bad',on&&!!GS.err);c.querySelector('.gs-st').textContent=st}
+ if(!gsM.classList.contains('open'))return;const B=$('gsB');
+ B.innerHTML=`<div class="mh"><span class="h">СИНХРОНИЗАЦИЯ</span><button class="bev" id="gsX">✕</button></div>
+ <div class="gs-hero ${on?(GS.err?'bad':'on'):''}"><span class="gs-ic">${ppx(CLOUD,'#fff')}</span><div><b>${on?'ОБЛАКО GITHUB':'ОБЛАКО ВЫКЛЮЧЕНО'}</b><small>${esc(st)}</small></div></div>
+ ${on?`<p class="gs-p">Прогресс сам сохраняется в приватный Gist на твоём GitHub через пару секунд после каждой отметки и подтягивается при открытии сайта на любом устройстве.</p>
+ <div class="gs-btns"><button class="bev gold" id="gsNow">⟳ СИНХРОНИЗИРОВАТЬ</button>${GS.gid?`<a class="bev" href="https://gist.github.com/${GS.gid}" target="_blank" rel="noopener">ОТКРЫТЬ GIST ↗</a>`:''}</div>
+ <button class="gs-off" id="gsOff">Отключить на этом устройстве</button>`
+ :`<ol class="gs-ol"><li>Открой <a href="https://github.com/settings/tokens/new?scopes=gist&description=SMG4%20tracker" target="_blank" rel="noopener">страницу создания токена ↗</a> — галочка «gist» уже стоит.</li><li>Срок (Expiration) — «No expiration», внизу «Generate token».</li><li>Скопируй токен (начинается с ghp_) и вставь сюда:</li></ol>
+ <input class="gs-in" id="gsTok" type="password" placeholder="ghp_…" autocomplete="off" spellcheck="false"><div class="gs-btns"><button class="bev gold" id="gsGo">ПОДКЛЮЧИТЬ</button></div>
+ <p class="gs-p dim">Токен хранится только в этом браузере. На каждом устройстве его нужно вставить один раз.</p>`}`;
+ $('gsX').onclick=()=>gsM.classList.remove('open');
+ if(on){$('gsNow').onclick=()=>gsSync(true);$('gsOff').onclick=()=>{GS.tok='';LS.set('smg4-gh-tok','');GS.err='';GS.ready=false;gsUI();toast('ОБЛАКО','Отключено на этом устройстве')}}
+ else $('gsGo').onclick=async()=>{const t=$('gsTok').value.trim();if(!/^(ghp_|github_pat_)\w+/.test(t)){toast('НЕ ПОХОЖЕ НА ТОКЕН','Он начинается с ghp_ или github_pat_');return}
+  GS.tok=t;try{await gh('/gists?per_page=1')}catch(e){GS.tok='';toast('ТОКЕН НЕ ПОДОШЁЛ',e.status===401?'Проверь, что скопировал целиком':'Нет связи с GitHub');return}
+  LS.set('smg4-gh-tok',t);GS.S={};gsStore();await gsSync(true)}}
+function openSync(){gsM.classList.add('open');gsUI()}
+{const sb=document.querySelector('#sheet .sheet-b .mh');if(sb)sb.insertAdjacentHTML('afterend',`<button class="gs-card" id="gsCard"><span class="gs-ic">${ppx(CLOUD,'#fff')}</span><span class="gs-tx"><b>ОБЛАКО · СИНХРОНИЗАЦИЯ</b><small class="gs-st"></small></span><span class="gs-go">›</span></button>`);
+ const c=$('gsCard');if(c)c.onclick=openSync;gsUI()}
+if(GS.tok)setTimeout(()=>gsSync(),1200);
 </script>
 </body>
 </html>
