@@ -1700,6 +1700,54 @@ label.tg.tile .sw{position:absolute!important;right:7px;bottom:7px;margin:0!impo
 /* v5.4 no text selection */
 html,body,body *{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 input,textarea,select,[contenteditable],[contenteditable] *{-webkit-user-select:text;user-select:text}
+
+/* v5.5 fix pet under floor on desktop */
+@media (min-width:1000px){aside.side{z-index:3;padding-top:82px!important;margin-top:-78px;top:-2px;max-height:calc(100vh - 10px)}}
+/* v5.5 KINO */
+.kn-ctl .cbtn:disabled{opacity:.4;filter:grayscale(.6);cursor:default;transform:none}
+body.kn-lock{overflow:hidden}
+#kino{position:fixed;inset:0;z-index:80;display:none;flex-direction:column;background:radial-gradient(ellipse at 50% 0%,#232a7a,#0b0d2a 60%,#05061a);color:#fff;font-family:var(--body);word-spacing:-.2em}
+#kino.open{display:flex;animation:knIn .25s ease-out}@keyframes knIn{from{opacity:0;transform:scale(1.02)}}
+#kino::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);z-index:0}
+#kino>*{position:relative;z-index:1}
+.kn-top{display:flex;align-items:center;gap:10px;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top));background:linear-gradient(#e8352b,#a8221a);border-bottom:3px solid #000;box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 3px 0 rgba(0,0,0,.5)}
+.kn-top b{font:400 20px/1 var(--title);word-spacing:normal;color:#ffd23f;-webkit-text-stroke:2px #3a1d00;paint-order:stroke fill;text-shadow:0 3px 0 #a35f00}
+.kn-top small{font:400 10px/1 var(--title);word-spacing:normal;color:#fff;background:rgba(0,0,0,.28);border:2px solid #000;border-radius:8px;padding:4px 8px}
+.kn-top .sp{flex:1}
+.kn-main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;padding:14px}
+.kn-left{min-width:0;min-height:0;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+.kn-tv{position:relative;width:100%;max-height:calc(100vh - 230px);aspect-ratio:16/9;margin:0 auto;padding:6px;border-radius:18px;background:linear-gradient(#fff3a0,#ffd23f 30%,#e09a00);border:3px solid #000;box-shadow:inset 0 2px 0 rgba(255,255,255,.6),inset 0 -4px 0 #a35f00,0 5px 0 #000}
+.kn-tv.short{aspect-ratio:9/16;width:auto;height:calc(100vh - 230px);max-width:100%}
+.kn-scr{position:relative;width:100%;height:100%;border-radius:12px;overflow:hidden;background:#000;border:2px solid #3a1d00}
+.kn-scr iframe,.kn-scr>div:not(.kn-nx){position:absolute;inset:0;width:100%;height:100%;border:0}
+.kn-msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:20px;font-size:12px;color:#cfd3ff;background:#05061a}
+.kn-msg b{font:400 15px var(--title);word-spacing:normal;color:#ffd23f}
+.kn-nx{position:absolute;inset:auto 12px 12px auto;display:flex;align-items:center;gap:10px;padding:10px 12px;border:2px solid #000;border-radius:14px;background:linear-gradient(#2a3180,#1a2066);box-shadow:0 3px 0 #000;max-width:70%;z-index:3}
+.kn-nx small{display:block;font:400 9px var(--title);word-spacing:normal;color:#ffd23f}.kn-nx span{font-size:11px}
+.kn-nx em{font:400 22px var(--title);font-style:normal;color:#fff;-webkit-text-stroke:1.5px #000;paint-order:stroke fill;min-width:22px;text-align:center}
+.kn-info{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.kn-ttl{flex:1;min-width:200px}.kn-ttl b{display:block;font:400 17px/1.15 var(--title);word-spacing:normal;color:#fff;-webkit-text-stroke:1.5px #000;paint-order:stroke fill}
+.kn-ttl small{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;font-size:10px;color:#a9b0e8}.kn-ttl small i{font-style:normal;padding:2px 7px;border-radius:7px;background:rgba(255,255,255,.08)}
+.kn-ctl{display:flex;align-items:center;gap:8px}
+.kn-ctl .cbtn{width:46px;height:46px}.cbtn .ci.px{width:18px;height:18px;shape-rendering:crispEdges}
+.kn-done{display:flex;align-items:center;gap:7px;height:46px;padding:0 16px;font-size:14px!important;border-radius:23px!important;white-space:nowrap}
+.kn-done.on{background:linear-gradient(#5fe07a,#2fa83f)!important}
+.kn-auto{display:flex;align-items:center;gap:8px;font:400 10px/1 var(--title);word-spacing:normal;color:#cfd3ff;cursor:pointer;user-select:none}
+.kn-sw{position:relative;width:44px;height:24px;border-radius:12px;border:2px solid #000;background:#141851;box-shadow:inset 0 2px 0 rgba(0,0,0,.5);transition:background .2s}
+.kn-sw::after{content:"";position:absolute;top:1px;left:1px;width:18px;height:18px;border-radius:50%;border:2px solid #3a1d00;background:radial-gradient(circle at 35% 28%,#fff6b0,#ffd23f 50%,#c27b00);transition:left .2s cubic-bezier(.3,1.5,.5,1)}
+.kn-auto.on .kn-sw{background:#2fa83f}.kn-auto.on .kn-sw::after{left:21px}
+.kn-q{min-height:0;display:flex;flex-direction:column;border:3px solid #ffd23f;border-radius:18px;background:linear-gradient(#1c2266,#12164a);box-shadow:0 0 0 2px #000,0 5px 0 #000;overflow:hidden}
+.kn-qh{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 8px}.kn-qh b{font:400 15px var(--title);word-spacing:normal;color:#ffd23f;-webkit-text-stroke:1.5px #3a1d00;paint-order:stroke fill;text-shadow:0 2px 0 #a35f00}.kn-qh small{font-size:10px;color:#a9b0e8}
+#knL{flex:1;min-height:0;overflow-y:auto;padding:2px 10px 12px;display:flex;flex-direction:column;gap:6px}
+.kn-i{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:8px 9px;border:2px solid #000;border-radius:12px;background:linear-gradient(#232a7a,#161b55);box-shadow:inset 0 -3px 0 var(--c,#4f8cff);color:#fff;font:inherit;font-size:10.5px;line-height:1.3;cursor:pointer}
+.kn-i .n{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2px solid #3a1d00;background:radial-gradient(circle,#141851 0 54%,transparent 56%),radial-gradient(circle at 35% 28%,#fff6b0,#ffd23f 50%,#c27b00);font:400 14px/1 var(--title);word-spacing:normal;color:#fff;-webkit-text-stroke:1.2px #000;paint-order:stroke fill}
+.kn-i .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.kn-i small{flex:none;color:#8a91cc;font-size:9.5px}
+.kn-i.on{background:linear-gradient(#fff3a0,#ffd23f 55%,#e09a00);color:#3a1d00;box-shadow:inset 0 -3px 0 #a35f00,0 0 0 2px #fff}.kn-i.on small{color:#6b4500}.kn-i.on .n{background:radial-gradient(circle,#e8352b 0 54%,transparent 56%),radial-gradient(circle at 35% 28%,#fff6b0,#ffd23f 50%,#c27b00)}
+.kn-i.dn:not(.on){opacity:.6}.kn-i.dn .n{background:radial-gradient(circle,#2fa83f 0 54%,transparent 56%),radial-gradient(circle at 35% 28%,#fff6b0,#ffd23f 50%,#c27b00)}
+@media(hover:hover){.kn-i:not(.on):hover{filter:brightness(1.2)}}
+@media(max-width:860px){.kn-main{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);padding:10px;gap:10px;overflow:hidden}.kn-left{overflow:visible}.kn-tv{max-height:none}.kn-tv.short{height:min(62vh,560px);margin:0 auto}.kn-top b{font-size:16px}.kn-top small{display:none}
+ .kn-info{gap:8px}.kn-ttl{min-width:100%}.kn-ttl b{font-size:14px}.kn-ctl{flex:1}.kn-done{flex:1;justify-content:center;font-size:12px!important;padding:0 8px}.kn-ctl .cbtn{width:42px;height:42px}.kn-auto{width:100%;justify-content:flex-end}}
 </style>
 </head>
 <body>
@@ -3201,6 +3249,63 @@ function petHint(S){return S.mood==='hungry'?'Я проголодался… п�
 {const _tg=toggle;toggle=function(id,on,el){const st0=PET.state().st;_tg(id,on,el);if(!on)return;const e=BYID[id];PET.cheer();const st1=PET.state().st;
  setTimeout(()=>petSay(st1>st0?pick(PETL.grow):e&&e.boss?pick(PETL.boss):e&&e.dur>1500?pick(PETL.long):pick(PETL.fed)),350)}}
 document.addEventListener('selectstart',e=>{const t=e.target.nodeType===1?e.target:e.target.parentElement;if(!t||!t.closest('input,textarea,[contenteditable]'))e.preventDefault()});
+
+/* ===== v5.5 КИНОТЕАТР (работает на https-хостинге: GitHub Pages и т.п.) ===== */
+const KINO_OK=(location.protocol==='https:'||/^(localhost|127\.0\.0\.1)$/.test(location.hostname))&&!/claude|anthropic/i.test(location.hostname);
+const KPX={prev:['#......#.','#.....##.','#....###.','#...####.','#..#####.','#...####.','#....###.','#.....##.','#......#.'],
+ next:['.#......#','.##.....#','.###....#','.####...#','.#####..#','.####...#','.###....#','.##.....#','.#......#'],
+ x:['##.....##','###...###','.###.###.','..#####..','...###...','..#####..','.###.###.','###...###','##.....##'],
+ play:['.##......','.####....','.######..','.#######.','.########','.#######.','.######..','.####....','.##......'],
+ tv:['.#.....#.','..#...#..','...#.#...','#########','#.......#','#.......#','#.......#','#########','.#.....#.']};
+const kpx=n=>'<svg class="ci px" viewBox="0 0 9 9" aria-hidden="true">'+KPX[n].map((r,y)=>[...r].map((c,x)=>c==='#'?`<rect x="${x}" y="${y}" width="1.02" height="1.02"/>`:'').join('')).join('')+'</svg>';
+const VMAP={};eps.forEach(e=>{const v=vidOf(e);if(v&&!VMAP[v])VMAP[v]=e});
+const kino=document.createElement('div');kino.id='kino';kino.setAttribute('role','dialog');kino.setAttribute('aria-label','Кинотеатр');
+kino.innerHTML=`<div class="kn-top"><button class="cbtn" style="--k:#ffd23f" tabindex="-1" aria-hidden="true">${kpx('play')}</button><b>КИНОТЕАТР</b><small id="knS"></small><span class="sp"></span><button class="cbtn" id="knX" style="--k:#e8352b" aria-label="Закрыть">${kpx('x')}</button></div>
+<div class="kn-main"><div class="kn-left"><div class="kn-tv" id="knTV"><div class="kn-scr" id="knScr"></div></div>
+<div class="kn-info"><div class="kn-ttl"><b id="knT"></b><small id="knM"></small></div>
+<div class="kn-ctl"><button class="cbtn" id="knP" style="--k:#2f6fe0" aria-label="Предыдущая">${kpx('prev')}</button><button class="bev gold kn-done" id="knD">★ ВИДЕЛ</button><button class="cbtn" id="knN" style="--k:#2f6fe0" aria-label="Следующая">${kpx('next')}</button></div>
+<label class="kn-auto" id="knA"><span>АВТО-ДАЛЕЕ</span><span class="kn-sw"></span></label></div></div>
+<div class="kn-q"><div class="kn-qh"><b>ОЧЕРЕДЬ</b><small id="knC"></small></div><div id="knL"></div></div></div>`;
+document.body.appendChild(kino);
+let KQ=[],KI=0,KP=null,KT=0,KNX=0,ytReady=null;
+if(X.kauto===undefined)X.kauto=true;
+function ytApi(){if(ytReady)return ytReady;ytReady=new Promise((res,rej)=>{if(window.YT&&YT.Player)return res();const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';s.onerror=()=>{ytReady=null;rej()};window.onYouTubeIframeAPIReady=()=>res();document.head.appendChild(s);setTimeout(()=>rej(),15000)});return ytReady}
+function kQueue(e){const i=eps.indexOf(e),q=[e.id];for(let k=i+1;k<eps.length&&q.length<60;k++){const x=eps[k];if(!done.has(x.id)&&!HID.has(x.id)&&vidOf(x))q.push(x.id)}return q}
+function kinoOpen(e){if(!e)return;KQ=kQueue(e);KI=0;kino.classList.add('open');document.body.classList.add('kn-lock');$('knA').classList.toggle('on',!!X.kauto);try{ecClose()}catch(_){}kPlay()}
+function kSave(){if(!KP||!KP.getCurrentTime)return;try{const id=KQ[KI],t=KP.getCurrentTime(),d=KP.getDuration();if(t>5&&d&&t<d-20){X.bm[id]=Math.floor(t)}else if(d&&t>=d-20)delete X.bm[id];saveX()}catch(_){}}
+function kStop(){clearInterval(KT);clearInterval(KNX);KT=KNX=0;kSave();try{KP&&KP.destroy()}catch(_){}KP=null}
+function kinoClose(){kStop();kino.classList.remove('open');document.body.classList.remove('kn-lock');$('knScr').innerHTML='';try{full()}catch(_){}}
+function kMark(e,auto){if(done.has(e.id))return;toggle(e.id,true);delete X.bm[e.id];saveX();if(auto)toast('СЕРИЯ ПРОСМОТРЕНА','Отмечено автоматически ★');kUI()}
+function kGo(d){const n=KI+d;if(n<0||n>=KQ.length){if(n>=KQ.length)toast('КОНЕЦ ОЧЕРЕДИ','Всё просмотрено 🎉');return}KI=n;kPlay()}
+function kUI(){const e=BYID[KQ[KI]];if(!e)return;const dn=done.has(e.id);const D=$('knD');D.classList.toggle('on',dn);D.textContent=dn?'✓ ПРОСМОТРЕНО':'★ ВИДЕЛ';
+ $('knP').disabled=KI===0;$('knN').disabled=KI>=KQ.length-1;$('knS').textContent=`СЕЗОН ${e.s} · ${KI+1}/${KQ.length}`;$('knC').textContent=`${KQ.length} серий`;
+ $('knL').innerHTML=KQ.map((id,k)=>{const x=BYID[id];const as=(x.k==='arc'||x.boss)&&ARCSTYLE[arcKey(x)],c=as?as[0]:'';return `<button class="kn-i ${k===KI?'on':''} ${done.has(id)?'dn':''}" data-k="${k}"${c?` style="--c:${c}"`:''}><span class="n">${done.has(id)?'✓':k+1}</span><span class="t">${esc(x.t)}</span>${x.dur?`<small>${ts(x.dur)}</small>`:''}</button>`}).join('');
+ const on=$('knL').querySelector('.on');if(on)on.scrollIntoView({block:'nearest'})}
+function kPlay(){kStop();const e=BYID[KQ[KI]];if(!e)return;const v=vidOf(e),st=X.bm[e.id]||0;
+ $('knT').textContent=e.t;$('knM').innerHTML=`<i>${e.d?e.d.split('-').reverse().join('.'):''}</i>${e.dur?`<i>${mm(e.dur)}</i>`:''}${st?`<i>с места ${ts(st)}</i>`:''}${e.boss?'<i>БОСС</i>':''}`;
+ $('knTV').classList.toggle('short',e.c==='short');kUI();
+ const scr=$('knScr');scr.innerHTML='<div id="knPl"></div>';
+ const fail=(why)=>{scr.innerHTML=`<div class="kn-msg"><b>${why}</b><span>Можно открыть серию на YouTube — потом отметь её здесь кнопкой «ВИДЕЛ».</span><a class="bev gold" href="${ytUrl(e,st)}" target="_blank" rel="noopener">▶ ОТКРЫТЬ НА YOUTUBE</a></div>`};
+ if(!v){fail('Этого видео нет на YouTube');return}
+ ytApi().then(()=>{if(!kino.classList.contains('open')||BYID[KQ[KI]]!==e)return;
+  KP=new YT.Player('knPl',{videoId:v,playerVars:{autoplay:1,rel:0,playsinline:1,modestbranding:1,start:st},
+   events:{onReady:ev=>{try{ev.target.playVideo()}catch(_){}},
+    onError:ev=>fail(ev.data===101||ev.data===150?'Автор запретил смотреть это видео на других сайтах':'Видео не загрузилось'),
+    onStateChange:ev=>{if(ev.data===1&&!KT)KT=setInterval(()=>{kSave();try{const t=KP.getCurrentTime(),d=KP.getDuration();if(d>30&&t/d>=.95)kMark(e,true)}catch(_){}},5000);
+     if(ev.data===0){kMark(e,true);delete X.bm[e.id];saveX();if(X.kauto&&KI<KQ.length-1)kCount()}}}})
+ }).catch(()=>fail('Плеер YouTube не загрузился'))}
+function kCount(){const nx=BYID[KQ[KI+1]];if(!nx)return;let n=5;const box=document.createElement('div');box.className='kn-nx';box.innerHTML=`<em>${n}</em><div><small>ДАЛЬШЕ</small><span>${esc(nx.t)}</span></div><button class="bev" style="font-size:10px!important;padding:6px 8px">ОТМЕНА</button>`;$('knScr').appendChild(box);
+ box.querySelector('button').onclick=()=>{clearInterval(KNX);KNX=0;box.remove()};
+ KNX=setInterval(()=>{n--;box.querySelector('em').textContent=n;if(n<=0){clearInterval(KNX);KNX=0;kGo(1)}},1000)}
+$('knX').onclick=kinoClose;$('knP').onclick=()=>kGo(-1);$('knN').onclick=()=>kGo(1);
+$('knD').onclick=()=>{const e=BYID[KQ[KI]];if(!e)return;if(done.has(e.id)){toggle(e.id,false)}else{toggle(e.id,true);delete X.bm[e.id];saveX()}kUI()};
+$('knA').onclick=ev=>{ev.preventDefault();X.kauto=!X.kauto;saveX();$('knA').classList.toggle('on',X.kauto)};
+$('knL').addEventListener('click',ev=>{const b=ev.target.closest('[data-k]');if(!b)return;KI=+b.dataset.k;kPlay()});
+addEventListener('keydown',ev=>{if(kino.classList.contains('open')&&ev.key==='Escape'){ev.stopPropagation();kinoClose()}},true);
+addEventListener('pagehide',kSave);
+/* перехват кнопок «СМОТРЕТЬ» */
+if(KINO_OK)document.addEventListener('click',ev=>{const a=ev.target.closest('a[href*="youtube.com/"],a[href*="youtu.be/"]');if(!a||a.closest('#kino'))return;
+ const m=a.href.match(/(?:v=|shorts\/|youtu\.be\/|embed\/)([\w-]{11})/);const e=m&&VMAP[m[1]];if(!e)return;ev.preventDefault();ev.stopPropagation();kinoOpen(e)},true);
 </script>
 </body>
 </html>
